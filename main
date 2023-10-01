@@ -1,0 +1,43 @@
+1. CREATE (player:BasketballPlayer)
+SET player.name = "John Doe",
+    player.age = 25,
+    player.height = 200
+2. MATCH (p1:BasketballPlayer)
+WHERE p1.age > 30
+RETURN p1
+
+UNION
+
+MATCH (p2:BasketballPlayer)
+WHERE p2.height > 200
+RETURN p2
+3. CREATE (coach:Coach { name: "Mike Smith" })
+4. MERGE (player:BasketballPlayer { playerId: 1 })
+SET player.name = "Michael Jordan",
+    player.team = "Chicago Bulls"
+5. MATCH (player:BasketballPlayer { playerId: 1 })
+DELETE player
+6. CALL myProcedure(p1, p2)
+7. MATCH (player:BasketballPlayer)
+WHERE player.age > 40
+FOREACH (prop IN PROPERTIES(player) | REMOVE player[prop])
+8. MATCH (player:BasketballPlayer)
+WHERE player.age > 30
+SET player:Veteran
+9. CREATE (player:BasketballPlayer)
+SET player.name = "LeBron James",
+    player.teams = ["Cleveland Cavaliers", "Miami Heat", "Los Angeles Lakers"]
+10. CREATE (player:BasketballPlayer)
+SET player.details = {
+    height: 203,
+    weight: 113,
+    position: "Forward"
+}
+11. MATCH (player:BasketballPlayer)
+WHERE player.age > 25 AND player.height > 200
+RETURN player
+12. MATCH (player:BasketballPlayer)
+WHERE ANY(x IN player.teams WHERE x CONTAINS "Lakers")
+RETURN player
+13. MATCH (player:BasketballPlayer)
+RETURN player.name, [team IN player.teams | team + " (NBA)"] AS teams
